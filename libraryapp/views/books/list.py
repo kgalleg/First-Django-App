@@ -2,8 +2,11 @@ import sqlite3
 from django.shortcuts import render
 from libraryapp.models import Book
 from ..connection import Connection
+from django.shortcuts import redirect
+from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 
-
+@login_required
 def book_list(request):
     if request.method == 'GET':
         with sqlite3.connect(Connection.db_path) as conn:
@@ -43,3 +46,25 @@ def book_list(request):
         }
 
         return render(request, template, context)
+
+    elif request.method == 'POST':
+        form_data = request.POST
+
+        with sqlite3.connect(Connection.db_path) as conn:
+            db_cursor = conn.cursor()
+
+    #below, first argument is the SQL data, second argument is a tuple
+            db_cursor.execute("""
+            INSERT INTO libraryapp_book
+            (
+                title, author, isbn,
+                year_published, location_id, librarian_id
+            )
+            VALUES (?, ?, ?, ?, ?, ?)
+            """,
+            (form_data['title'], form_data['author'],
+                form_data['isbn'], form_data['year_published'],
+                form_data["location"],request.user.librarian.id, ))
+
+        return redirect(reverse('libraryapp:books'))
+        #we are going to stay in this route but it will be a GET request, we go fetch all teh stuff from the database, but now it will have the new book or new datat in it.

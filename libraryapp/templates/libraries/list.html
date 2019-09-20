@@ -6,12 +6,15 @@
     <title>Library</title>
   </head>
   <body>
-    <h1>Library</h1>
+    <h1>Libraries</h1>
 
     <ol>
     {% for library in all_libraries %}
-        <li>{{ library.title }} {{ library.address }}</li>
+        <li>
+            <a href="{% url 'libraryapp:library' library.id %}">{{ library.title }} </a>
+             Address: {{ library.address }}</li>
     {% endfor %}
     </ol>
   </body>
 </html>
+
