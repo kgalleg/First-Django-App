@@ -1,3 +1,5 @@
+{% extends 'shared/base.html' %}
+
 {% load staticfiles %}
 <!DOCTYPE html>
 <html>
@@ -6,7 +8,13 @@
     <title>Library</title>
   </head>
   <body>
+
+{% block content %}
+
+
     <h1>Libraries</h1>
+
+    <a href="{% url 'libraryapp:library_form' %}">Add Library</a>
 
     <ol>
     {% for library in all_libraries %}
@@ -15,6 +23,9 @@
              located at: {{ library.address }}</li>
     {% endfor %}
     </ol>
+
+    {% endblock %}
+
   </body>
 </html>
 

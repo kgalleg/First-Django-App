@@ -1,3 +1,5 @@
+{% extends 'shared/base.html' %}
+
 {% load staticfiles %}
 <!DOCTYPE html>
 <html>
@@ -8,6 +10,10 @@
 </head>
 
 <body>
+
+{% block content %}
+
+
     <h1>Inventory Libraries</h1>
 
     {% if library.id is not None %}
@@ -34,6 +40,8 @@
 
     </form>
 
+    {% endblock %}
+    
 </body>
 
 </html>

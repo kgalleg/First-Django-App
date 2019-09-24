@@ -1,3 +1,5 @@
+{% extends 'shared/base.html' %}
+
 {% load staticfiles %}
 <!DOCTYPE html>
 <html>
@@ -6,8 +8,10 @@
     <title>Library</title>
   </head>
   <body>
-
+    
+      {% block content %}
       <section id="book-details">
+
           <h1>{{ book.title }}</h1>
           <h2>By {{ book.author }}</h2>
 
@@ -28,6 +32,7 @@
     </form>
 </section>
 
+{% endblock %}
 
   </body>
 </html>
